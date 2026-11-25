@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShiftFlow v1.0 - Asignador de Turnos (Con Fallas)</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f6f9; color: #1f2937; margin: 0; padding: 24px; }
+    .container { max-width: 960px; margin: 0 auto; }
+    .header { background: #111827; color: #fff; padding: 18px 22px; border-radius: 8px; margin-bottom: 18px; }
+    .badge { display: inline-block; background: #dc2626; color: #fff; font-size: 12px; padding: 3px 8px; border-radius: 4px; margin-left: 8px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+    .card { background: #fff; padding: 16px; border-radius: 8px; border: 1px solid #e5e7eb; }
+    .ok { color: #15803d; font-weight: bold; font-size: 20px; }
+    .warn { color: #b91c1c; font-weight: bold; font-size: 20px; }
+    button { background: #2563eb; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; margin-right: 8px; }
+    button:hover { background: #1d4ed8; }
+    button.secondary { background: #4b5563; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; margin-top: 14px; }
+    th, td { border: 1px solid #e5e7eb; padding: 10px; text-align: left; font-size: 14px; }
+    th { background: #f9fafb; }
+    .alert-box { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 12px 16px; border-radius: 8px; margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>ShiftFlow v1.0 — Asignador Automático de Turnos <span class="badge">VERSIÓN CON FALLAS</span></h1>
+      <p>Optimiza velocidad y cobertura sin revisar rotación ni acumulación de noches y fines de semana.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div>Tiempo de ejecución</div>
+        <div class="ok" id="execTime">0.02 s</div>
+      </div>
+      <div class="card">
+        <div>Cobertura de producción</div>
+        <div class="ok">100% (Sin errores)</div>
+      </div>
+      <div class="card">
+        <div>Equidad en turnos críticos</div>
+        <div class="warn" id="equityStatus">Desbalanceada</div>
+      </div>
+    </div>
+
+    <div>
+      <button onclick="simularSemana()">Generar 1 Semana</button>
+      <button onclick="simularVariasSemanas(4)">Simular 4 Semanas</button>
+      <button class="secondary" onclick="reiniciar()">Reiniciar</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Trabajador</th>
+          <th>Disponibilidad</th>
+          <th>Noches acumuladas</th>
+          <th>Fines de semana</th>
+          <th>Total asignaciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaEmpleados"></tbody>
+    </table>
+
+    <div class="alert-box" id="reporteRRHH">
+      <strong>Alerta de RR. HH.:</strong> Aún no se ha simulado el ciclo. Ejecuta una semana o 4 semanas para ver el reparto.
+    </div>
+  </div>
+
+  <script>
+    const empleadosIniciales = [
+      { nombre: "Carlos Mendoza", disp: 95, noches: 0, findes: 0, total: 0 },
+      { nombre: "Ana Torres", disp: 90, noches: 0, findes: 0, total: 0 },
+      { nombre: "Luis Quispe", disp: 65, noches: 0, findes: 0, total: 0 },
+      { nombre: "María Flores", disp: 60, noches: 0, findes: 0, total: 0 }
+    ];
+
+    let empleados = JSON.parse(JSON.stringify(empleadosIniciales));
+    let semanas = 0;
+
+    function asignarTurno(esCritico) {
+      const candidatos = [...empleados].sort((a, b) => b.disp - a.disp);
+      const elegido = candidatos[0];
+      elegido.total += 1;
+      if (esCritico) {
+        elegido.noches += 1;
+        elegido.findes += 1;
+      }
+    }
+
+    function simularSemana() {
+      semanas += 1;
+      asignarTurno(true);
+      asignarTurno(true);
+      asignarTurno(true);
+      asignarTurno(false);
+      asignarTurno(false);
+      render();
+    }
+
+    function simularVariasSemanas(n) {
+      for (let i = 0; i < n; i++) simularSemana();
+    }
+
+    function reiniciar() {
+      empleados = JSON.parse(JSON.stringify(empleadosIniciales));
+      semanas = 0;
+      render();
+    }
+
+    function render() {
+      const tbody = document.getElementById("tablaEmpleados");
+      tbody.innerHTML = "";
+      empleados.forEach(e => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${e.nombre}</td>
+            <td>${e.disp}%</td>
+            <td><strong>${e.noches}</strong></td>
+            <td><strong>${e.findes}</strong></td>
+            <td>${e.total}</td>
+          </tr>
+        `;
+      });
+
+      document.getElementById("execTime").textContent = (0.02 * Math.max(1, semanas)).toFixed(2) + " s";
+      const masCargado = [...empleados].sort((a, b) => b.noches - a.noches)[0];
+      document.getElementById("equityStatus").textContent = semanas > 0 ? "Sesgo detectado" : "Desbalanceada";
+      document.getElementById("reporteRRHH").innerHTML = semanas === 0
+        ? "<strong>Alerta de RR. HH.:</strong> Aún no se ha simulado el ciclo."
+        : `<strong>Reporte tras ${semanas} semana(s):</strong> El código no lanzó ningún error, pero <strong>${masCargado.nombre}</strong> acumula <strong>${masCargado.noches}</strong> turnos críticos porque el algoritmo no limita repeticiones.`;
+    }
+
+    render();
+  </script>
+</body>
+</html>
