@@ -7,6 +7,7 @@ function generate() {
 
   for (let d = 1; d <= 30; d++) {
     const isSun = SUNDAYS.includes(d);
+    const nextIsSun = SUNDAYS.includes(d + 1);
     const needN = d <= 26 ? 2 : 1;
     const usedToday = new Set();
 
@@ -15,6 +16,7 @@ function generate() {
         .filter(i => !usedToday.has(i) && !lastNights.has(i))
         .sort((a, b) => {
           if (isSun && sCount[a] !== sCount[b]) return sCount[a] - sCount[b];
+          if (nextIsSun && isNightShift && sCount[a] !== sCount[b]) return sCount[b] - sCount[a];
           if (isNightShift && nCount[a] !== nCount[b]) return nCount[a] - nCount[b];
           if (totCount[a] !== totCount[b]) return totCount[a] - totCount[b];
           return ((a + d) % 12) - ((b + d) % 12);
