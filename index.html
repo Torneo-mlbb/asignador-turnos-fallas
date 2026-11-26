@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sistema de Gestión de Turnos · Gloria S.A.</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header>
+  <div class="logo"><img src="assets/logo-gloria.jpg" alt="Logo de Gloria"></div>
+  <div><h1>Sistema de Gestión de Turnos</h1><small>Gloria S.A. (simulación académica) · Planta de producción continua</small></div>
+  <div class="hr">Módulo de Recursos Humanos<br>Fase 2 · Algoritmo equitativo (Consenso RR. HH. - TI)</div>
+</header>
+<nav id="nav">
+  <button data-v="panel" class="on">Panel principal</button>
+  <button data-v="workers">Trabajadores</button>
+  <button data-v="sched">Horarios</button>
+  <button data-v="inc">Incidencias</button>
+  <button data-v="report">Reporte de RR. HH.</button>
+</nav>
+<main>
+
+<section id="v-panel" class="sec-view on">
+  <div class="grid k4">
+    <div class="card kpi"><small>Total de trabajadores</small><b>12</b></div>
+    <div class="card kpi"><small>Turnos</small><b style="font-size:18px;line-height:2">Mañana · Tarde · Noche</b></div>
+    <div class="card kpi"><small>Periodo de programación</small><b style="font-size:20px;line-height:1.8">Noviembre de 2026</b></div>
+    <div class="card kpi ok"><small>Estado del sistema</small><b>● Operativo</b></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h2>Programación automática</h2>
+    <p style="color:var(--mut);margin-top:0">El algoritmo considera disponibilidad, experiencia laboral, necesidades de producción y distribución equitativa de turnos nocturnos y fines de semana.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <button class="btn pri" id="bGen">Generar horarios automáticamente</button>
+      <button class="btn sec" id="bRep">Ver reporte de distribución</button>
+    </div>
+    <p id="genMsg" style="margin:14px 0 0;color:var(--okt)"></p>
+  </div>
+  <div class="grid k2" style="margin-top:16px">
+    <div class="card"><h3>Criterios del algoritmo</h3>
+      <table><tr><td>Disponibilidad de trabajadores</td><td class="n">Activo</td></tr><tr><td>Experiencia laboral (duplas mixtas)</td><td class="n">Activo</td></tr><tr><td>Necesidades de producción</td><td class="n">Activo</td></tr><tr><td>Equidad nocturna y fines de semana</td><td class="n">Activo</td></tr></table></div>
+    <div class="card"><h3>Demanda de cobertura (por día)</h3>
+      <table><tr><td>Mañana</td><td class="n">2 trabajadores</td></tr><tr><td>Tarde</td><td class="n">2 trabajadores</td></tr><tr><td>Noche</td><td class="n">2 trabajadores (1 al cierre del mes)</td></tr><tr><td>Domingos</td><td class="n">Cobertura completa</td></tr></table></div>
+  </div>
+</section>
+
+<section id="v-workers" class="sec-view">
+  <div class="card"><h2>Registro de trabajadores</h2>
+    <table><thead><tr><th>Código</th><th>Nombre</th><th>Experiencia</th><th>Disponibilidad</th></tr></thead><tbody id="wBody"></tbody></table></div>
+</section>
+
+<section id="v-sched" class="sec-view">
+  <div class="card"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px">
+    <h2 style="margin:0">Programación de turnos · noviembre de 2026</h2>
+    <label>Vista: <select class="sel" id="range"><option value="0">Mensual (1–30)</option><option value="1">Semana 1 (1–7)</option><option value="2">Semana 2 (8–14)</option><option value="3">Semana 3 (15–21)</option><option value="4">Semana 4 (22–28)</option><option value="5">Semana 5 (29–30)</option></select></label></div>
+    <div class="leg"><span><i style="background:#b27a00"></i>M = Mañana</span><span><i style="background:#c25a00"></i>T = Tarde</span><span><i style="background:var(--blue)"></i>N = Noche</span><span>Columnas sombreadas = domingos</span></div>
+    <div class="wrap" id="schedBox"></div></div>
+</section>
+
+<section id="v-inc" class="sec-view">
+  <div class="card"><h2>Panel de incidencias</h2><div id="incBox"></div></div>
+</section>
+
+<section id="v-report" class="sec-view">
+  <div class="printhead"><img src="assets/logo-gloria.jpg" alt="Logo de Gloria"><h2 style="display:inline">Gloria S.A. · Reporte de incidencia de turnos</h2></div>
+  <div class="card"><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;align-items:center">
+    <h2 style="margin:0">Reporte de Recursos Humanos · distribución de turnos</h2>
+    <button class="btn pri noprint" id="bPrint">Generar / imprimir reporte de incidencia</button></div>
+    <p style="color:var(--mut)" id="repDate"></p>
+    <div id="repBox"></div></div>
+</section>
+
+<p class="note">Toda la información es ficticia y se utiliza exclusivamente para una simulación académica. Gloria S.A. es solo una referencia.</p>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/data.js"></script>
+<script src="js/algorithm.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>
