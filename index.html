@@ -3,45 +3,74 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Gloria · Sistema Equitativo de Turnos de Planta</title>
+<title>Gloria · Sistema Equitativo de Turnos de Planta · Arequipa</title>
 <style>
-:root{--bg:#f2f6fb;--card:#fff;--tx:#10243f;--mut:#5d6b80;--bd:#dbe4ef;--br:#0b4f9e;--br2:#0a3d7a;--acc:#e8f1fc;--bad:#d92d20;--ok:#12a150;--m:#fde68a;--t:#fdba74;--n:#1e3a8a;--mtx:#713f12;--ttx:#7c2d12;--ntx:#fff;--off:#eef1f5;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1420;--card:#16202f;--tx:#e6edf7;--mut:#94a3b8;--bd:#27344a;--br:#5b9bf0;--br2:#2f6fc0;--acc:#1b2b45;--bad:#f87171;--ok:#4ade80;--m:#6b5a14;--t:#7a4a1b;--n:#3b5fc4;--mtx:#fde68a;--ttx:#fed7aa;--off:#1b2535}}
+:root{
+  --bg:#f4f7fb;--card:#ffffff;--tx:#0c2340;--mut:#4b5d73;--bd:#d3dfec;
+  --gl-blue:#004691;--gl-blue-dark:#002f63;--gl-blue-soft:#e3eefb;
+  --gl-red:#e31837;--gl-red-soft:#fde8ec;
+  --gl-gold:#f7b500;--gl-gold-soft:#fff6d6;
+  --br:var(--gl-blue);--br2:var(--gl-blue-dark);--acc:var(--gl-blue-soft);
+  --bad:var(--gl-red);--ok:#0f9d58;
+  --m:#ffe082;--t:#ffb74d;--n:#003366;--mtx:#5c3d00;--ttx:#662e00;--ntx:#ffffff;--off:#eef2f7;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a121e;--card:#121e30;--tx:#e8eff8;--mut:#95a8c0;--bd:#23354e;
+    --gl-blue:#3d8bfd;--gl-blue-dark:#082344;--gl-blue-soft:#152842;
+    --gl-red:#ff4d67;--gl-red-soft:#38141d;
+    --gl-gold:#ffc82c;--gl-gold-soft:#382b08;
+    --br:var(--gl-blue);--br2:var(--gl-blue-dark);--acc:var(--gl-blue-soft);
+    --bad:var(--gl-red);--ok:#34d399;
+    --m:#7a5b00;--t:#874600;--n:#1d4ed8;--mtx:#ffe69c;--ttx:#ffd2a1;--ntx:#ffffff;--off:#182436
+  }
+}
 *{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45;font-size:15px}
-header{background:var(--br2);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.5rem;letter-spacing:.3px}
-.logo svg{width:26px;height:26px}
-.plant{font-size:.85rem;opacity:.9;border-left:1px solid #fff5;padding-left:14px}
-.user{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:.85rem}
-.user select{padding:5px 8px;border-radius:7px;border:1px solid #fff4;background:#072a54;color:#fff;font-weight:600}
+header{
+  background:linear-gradient(90deg,var(--gl-blue-dark) 0%,var(--gl-blue) 78%,var(--gl-red) 100%);
+  color:#fff;padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  border-bottom:3px solid var(--gl-gold)
+}
+.logo{
+  display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.45rem;
+  letter-spacing:.4px;background:#fff;color:var(--gl-red);padding:4px 12px 4px 8px;
+  border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.2)
+}
+.logo svg{width:34px;height:28px;flex-shrink:0}
+.logo span{display:flex;flex-direction:column;line-height:1.05}
+.logo .brand-name{color:var(--gl-red);font-size:1.35rem;font-weight:900;text-transform:uppercase}
+.logo .brand-sub{color:var(--gl-blue);font-size:.65rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase}
+.plant{font-size:.85rem;opacity:.95;border-left:1px solid #fff6;padding-left:14px}
+.user{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:.85rem;flex-wrap:wrap}
+.user select{padding:5px 8px;border-radius:7px;border:1px solid #fff5;background:var(--gl-blue-dark);color:#fff;font-weight:600}
 nav{background:var(--card);border-bottom:1px solid var(--bd);display:flex;gap:2px;padding:0 10px;overflow-x:auto}
 nav a{padding:12px 14px;text-decoration:none;color:var(--mut);font-weight:600;border-bottom:3px solid transparent;white-space:nowrap}
-nav a.on{color:var(--br);border-color:var(--br)}
+nav a.on{color:var(--gl-red);border-color:var(--gl-red)}
 main{max-width:1100px;margin:0 auto;padding:16px}
 .view{display:none}.view.on{display:block}
 h2{font-size:1.15rem;margin:0 0 10px}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:14px;border-top:3px solid var(--gl-blue)}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:14px}
 .kpi{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px}
-.kpi span{color:var(--mut);font-size:.8rem}.kpi b{display:block;font-size:1.6rem;color:var(--br)}
+.kpi span{color:var(--mut);font-size:.8rem}.kpi b{display:block;font-size:1.6rem;color:var(--gl-blue)}
 .kpi.bad b{color:var(--bad)}.kpi.ok b{color:var(--ok)}
 .lines{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.line{background:var(--acc);border-radius:10px;padding:12px}.line b{display:block}.line small{color:var(--mut)}
+.line{background:var(--acc);border-radius:10px;padding:12px;border-left:4px solid var(--gl-blue)}.line b{display:block}.line small{color:var(--mut)}
 .bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
 button,select,input{font:inherit}
-button{padding:8px 14px;border-radius:8px;border:1px solid var(--br);background:var(--card);color:var(--br);font-weight:600;cursor:pointer}
-button.p{background:var(--br);color:#fff}
-button.w{padding:6px 12px}button.w.on{background:var(--br);color:#fff}
+button{padding:8px 14px;border-radius:8px;border:1px solid var(--gl-blue);background:var(--card);color:var(--gl-blue);font-weight:600;cursor:pointer}
+button.p{background:var(--gl-red);border-color:var(--gl-red);color:#fff}
+button.w{padding:6px 12px}button.w.on{background:var(--gl-blue);color:#fff}
 button:disabled,input:disabled,select:disabled{opacity:.5;cursor:not-allowed}
 select,input[type=number],input[type=text]{padding:7px 8px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--tx)}
 .sp{flex:1}
-.badge{font-size:.75rem;font-weight:700;padding:3px 9px;border-radius:99px;background:var(--acc);color:var(--br)}
+.badge{font-size:.75rem;font-weight:700;padding:3px 9px;border-radius:99px;background:var(--acc);color:var(--gl-blue)}
 .badge.pub{background:var(--ok);color:#fff}
-.badge.eq{background:var(--ok);color:#fff}
-.badge.ro{background:#fef3c7;color:#92400e}
+.badge.eq{background:var(--gl-blue);color:#fff}
+.badge.ro{background:var(--gl-gold-soft);color:#7a4f00;border:1px solid var(--gl-gold)}
 .sc{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:640px}
 th,td{padding:6px 5px;border-bottom:1px solid var(--bd);text-align:left;vertical-align:middle}
@@ -49,14 +78,14 @@ th{color:var(--mut);font-weight:600;font-size:.78rem}
 td.c,th.c{text-align:center}
 .ch{display:inline-block;min-width:34px;padding:5px 0;border-radius:6px;text-align:center;font-weight:700;font-size:.8rem;cursor:pointer;user-select:none}
 .ch.M{background:var(--m);color:var(--mtx)}.ch.T{background:var(--t);color:var(--ttx)}.ch.N{background:var(--n);color:var(--ntx)}.ch.O{background:var(--off);color:var(--mut)}
-.ch.ed{outline:2px dashed var(--br);outline-offset:1px}
+.ch.ed{outline:2px dashed var(--gl-red);outline-offset:1px}
 .ch.lock{cursor:not-allowed;opacity:.85}
-.tag{font-size:.7rem;background:var(--acc);color:var(--br);padding:2px 7px;border-radius:99px;margin-left:6px;font-weight:600}
-.tag.new{background:#fef3c7;color:#92400e}
+.tag{font-size:.7rem;background:var(--acc);color:var(--gl-blue);padding:2px 7px;border-radius:99px;margin-left:6px;font-weight:600}
+.tag.new{background:var(--gl-gold-soft);color:#7a4f00}
 .cov{font-size:.72rem;color:var(--mut)}.cov.x{color:var(--bad);font-weight:700}
 .leg{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:var(--mut);margin-top:10px}
 .leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px}
-.hb{height:10px;border-radius:5px;background:var(--br);min-width:2px}.hb.hot{background:var(--bad)}.hb.ok{background:var(--ok)}
+.hb{height:10px;border-radius:5px;background:var(--gl-blue);min-width:2px}.hb.hot{background:var(--bad)}.hb.ok{background:var(--ok)}
 .al{display:flex;gap:10px;padding:10px;border-radius:8px;background:var(--acc);margin-bottom:8px;border-left:4px solid var(--bad)}
 .al.ok{border-left-color:var(--ok)}
 .shift{margin-bottom:10px}.shift b{display:block;margin-bottom:4px}
@@ -64,18 +93,30 @@ td.c,th.c{text-align:center}
 .rules{display:grid;gap:12px;max-width:600px}.rules label{display:flex;gap:8px;align-items:center}
 .rules fieldset{border:1px solid var(--bd);border-radius:10px;padding:10px 12px}
 .rules fieldset[disabled]{opacity:.55}
-#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--br2);color:#fff;padding:10px 16px;border-radius:10px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90%;z-index:50}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--gl-blue-dark);color:#fff;padding:10px 16px;border-radius:10px;border-bottom:2px solid var(--gl-gold);font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90%;z-index:50}
 #toast.on{opacity:1}
 footer{text-align:center;color:var(--mut);font-size:.75rem;padding:10px 16px 24px}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2C9 7 5.5 10.5 5.5 14.5a6.5 6.5 0 0 0 13 0C18.5 10.5 15 7 12 2Z"/></svg>Gloria</div>
-  <div class="plant">Planta Huachipa · Lima</div>
+  <div class="logo" aria-label="Logo Gloria Arequipa">
+    <svg viewBox="0 0 48 38" xmlns="http://www.w3.org/2000/svg">
+      <!-- Óvalo azul y rojo característico de Leche Gloria Arequipa -->
+      <ellipse cx="24" cy="19" rx="22" ry="16" fill="#004691"/>
+      <ellipse cx="24" cy="19" rx="19.5" ry="13.5" fill="none" stroke="#f7b500" stroke-width="1.8"/>
+      <path d="M6 21 C15 15, 33 15, 42 21 C34 29, 14 29, 6 21 Z" fill="#e31837"/>
+      <path d="M24 7 C20 13, 15.5 17.5, 15.5 22.5 C15.5 27.2, 19.3 31, 24 31 C28.7 31, 32.5 27.2, 32.5 22.5 C32.5 17.5, 28 13, 24 7 Z" fill="#ffffff"/>
+      <path d="M24 11.5 C21.5 15.8, 18.8 19, 18.8 22.6 C18.8 25.5, 21.1 27.8, 24 27.8 C26.9 27.8, 29.2 25.5, 29.2 22.6 C29.2 19, 26.5 15.8, 24 11.5 Z" fill="#e31837"/>
+    </svg>
+    <span>
+      <span class="brand-name">Gloria</span>
+      <span class="brand-sub">Arequipa</span>
+    </span>
+  </div>
+  <div class="plant">Planta Gloria · Arequipa</div>
   <div class="user">
     <span id="dbDot" class="badge">Conectando BD...</span>
-    <label for="rolSel" style="display:none">Rol</label>
     <select id="rolSel">
       <option value="jefe" selected>Jefe de Planta</option>
       <option value="operario">Operario (Solo lectura)</option>
@@ -86,7 +127,7 @@ footer{text-align:center;color:var(--mut);font-size:.75rem;padding:10px 16px 24p
   <a href="#inicio" data-v="inicio">Inicio</a>
   <a href="#programacion" data-v="programacion">Programación</a>
   <a href="#operarios" data-v="operarios">Operarios</a>
-  <a href="#reportes" data-v="reportes">Reportes de Equidad</a>
+  <a href="#reportes" data-v="reportes">Reportes y Auditoría</a>
   <a href="#produccion" data-v="produccion">Producción</a>
   <a href="#reglas" data-v="reglas">Reglas Equitativas</a>
 </nav>
@@ -94,7 +135,7 @@ footer{text-align:center;color:var(--mut);font-size:.75rem;padding:10px 16px 24p
 <section id="inicio" class="view">
   <div class="kpis" id="k1"></div>
   <div class="card"><h2>Variables que analiza el motor equitativo</h2><div class="lines" id="fact"></div></div>
-  <div class="card"><h2>Líneas de producción</h2><div class="lines" id="lines"></div></div>
+  <div class="card"><h2>Líneas de producción · Arequipa</h2><div class="lines" id="lines"></div></div>
   <div class="card"><h2 id="hoyT">En planta hoy</h2><div id="hoy"></div></div>
 </section>
 
@@ -104,6 +145,7 @@ footer{text-align:center;color:var(--mut);font-size:.75rem;padding:10px 16px 24p
       <span class="badge eq" id="auto">Asignación equitativa automática</span>
       <button id="pub" class="p">Publicar</button>
       <button id="reabrir" style="display:none">Reabrir borrador</button>
+      <button id="csvBtn">Exportar CSV</button>
       <span class="badge" id="est">Borrador</span>
       <span class="cov" id="last"></span>
       <span class="sp"></span>
@@ -128,6 +170,9 @@ footer{text-align:center;color:var(--mut);font-size:.75rem;padding:10px 16px 24p
   <div class="card" id="alc"><h2>Estado de equidad</h2><div id="al"></div></div>
   <div class="card sc"><h2>Distribución equitativa por operario · 4 semanas</h2>
     <table><thead><tr><th>Operario</th><th>Perfil</th><th class="c">Total turnos</th><th class="c">Noches</th><th class="c">Domingos</th><th class="c">Fines de semana</th><th class="c">Carga crítica (Noche + Fin de sem.)</th><th style="width:24%">Balance</th></tr></thead><tbody id="rb"></tbody></table>
+  </div>
+  <div class="card sc"><h2>Historial de auditoría (Supabase)</h2>
+    <table><thead><tr><th>Fecha y hora</th><th>Acción</th><th>Rol</th><th>Detalle</th></tr></thead><tbody id="ab"></tbody></table>
   </div>
 </section>
 
@@ -155,7 +200,7 @@ footer{text-align:center;color:var(--mut);font-size:.75rem;padding:10px 16px 24p
   </div></div>
 </section>
 </main>
-<footer>Gloria S.A. · Sistema de asignación equitativa de turnos · Conectado a Supabase</footer>
+<footer>Gloria · Planta Arequipa · Sistema de asignación equitativa de turnos · Supabase + PostgreSQL</footer>
 <div id="toast"></div>
 
 <script>
@@ -181,7 +226,7 @@ let EMP=[
  {id:null,n:"Hugo Cáceres",l:"Queso",e:1,a:al(3),on:1,p:0}];
 let NEED=Array.from({length:7},(_,p)=>({M:p>=5?1:2,T:p>=5?1:2,N:p>=5?1:2}));
 let CFG={modo:"eq",rot:true,desc:true,topedom:2,tope:6,fin:1,mez:true};
-let S=[],SIN=0,WK=0,FL="",PUB=false,ED={},ROL="jefe",PROG_ID=null,DB_OK=false;
+let S=[],SIN=0,WK=0,FL="",PUB=false,ED={},ROL="jefe",PROG_ID=null,DB_OK=false,LOGS=[];
 
 function fmt(d){const x=new Date(START);x.setDate(x.getDate()+d);return x.getDate()+" "+MES[x.getMonth()]}
 function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("on"),2800)}
@@ -201,14 +246,20 @@ async function sbGet(path){
 async function sbPost(path,body){
   if(!SB_KEY)return null;
   const r=await fetch(`${SB_URL}/${path}`,{method:"POST",headers:sbHeaders(),body:JSON.stringify(body)});
-  if(!r.ok)throw new Error(`POST ${path} (${r.status})`);
+  if(!r.ok){
+    const msg=await r.text();
+    throw new Error(msg||`POST ${path} (${r.status})`);
+  }
   return r.json();
 }
 
 async function sbPatch(path,body){
   if(!SB_KEY)return null;
   const r=await fetch(`${SB_URL}/${path}`,{method:"PATCH",headers:sbHeaders(),body:JSON.stringify(body)});
-  if(!r.ok)throw new Error(`PATCH ${path} (${r.status})`);
+  if(!r.ok){
+    const msg=await r.text();
+    throw new Error(msg||`PATCH ${path} (${r.status})`);
+  }
   return r.json();
 }
 
@@ -218,10 +269,28 @@ function setDbStatus(state,text){
   b.className="badge "+(state==="ok"?"pub":state==="ro"?"ro":"");
 }
 
+async function logAudit(accion,detalle){
+  const item={accion,rol_simulado:ROL,detalle,creado_en:new Date().toISOString()};
+  LOGS.unshift(item);
+  vAudit();
+  if(!DB_OK)return;
+  try{
+    await sbPost("auditoria_turnos",{accion,rol_simulado:ROL,detalle});
+  }catch(err){console.warn("No se pudo registrar auditoría:",err);}
+}
+
+async function loadAudit(){
+  if(!DB_OK)return;
+  try{
+    const rows=await sbGet("auditoria_turnos?order=id.desc&limit=15");
+    if(Array.isArray(rows)){LOGS=rows;vAudit();}
+  }catch(err){console.warn("Sin historial de auditoría:",err);}
+}
+
 async function initDB(){
   if(!SB_KEY){
     DB_OK=false;
-    setDbStatus("ro","Modo local (falta SB_KEY)");
+    setDbStatus("ro","Modo local (pega SB_KEY)");
     recalc(false);
     return;
   }
@@ -255,6 +324,7 @@ async function initDB(){
     const progs=await sbGet("programaciones?order=id.desc&limit=1");
     DB_OK=true;
     setDbStatus("ok","Supabase conectado");
+    await loadAudit();
     if(progs && progs.length && Array.isArray(progs[0].matriz) && progs[0].matriz.length===EMP.length){
       PROG_ID=progs[0].id;
       S=progs[0].matriz;
@@ -292,7 +362,7 @@ async function persistEstado(estado,matriz){
     }
   }catch(err){
     console.error(err);
-    toast("Error guardando en BD: "+err.message);
+    toast("Bloqueado por BD: "+err.message);
   }
 }
 
@@ -407,7 +477,7 @@ function vProg(){
   $("pub").style.display=(ROL==="jefe" && !PUB)?"":"none";
   $("reabrir").style.display=(ROL==="jefe" && PUB)?"":"none";
   $("editHint").textContent=PUB
-    ? "Programación publicada: bloqueada contra edición (reabra como borrador para modificar)"
+    ? "Programación publicada: bloqueada contra edición en BD y UI"
     : (ROL==="jefe" ? "Clic en un turno en borrador para ajuste manual" : "Modo Operario: solo lectura");
 }
 
@@ -420,6 +490,18 @@ function vOper(){
   <td><select ${dis?"disabled":""} data-o="e" data-i="${i}">${[1,2,3,4,5].map(v=>`<option value="${v}" ${v===e.e?"selected":""}>Nivel ${v} (${v>=3?"Antiguo":"Nuevo"})</option>`).join("")}</select></td>
   <td><input ${dis?"disabled":""} type="number" min="0" max="28" value="${e.p||0}" data-o="pn" data-i="${i}" style="width:64px"></td>
   ${e.a.map((v,k)=>`<td class="c"><input ${dis?"disabled":""} type="checkbox" data-o="a" data-i="${i}" data-k="${k}" ${v?"checked":""}></td>`).join("")}</tr>`).join("");
+}
+
+function vAudit(){
+  const tb=$("ab");if(!tb)return;
+  if(!LOGS.length){
+    tb.innerHTML=`<tr><td colspan="4" class="cov">Aún no hay eventos registrados. Pulsa "Publicar" o "Reabrir borrador" para registrar auditoría.</td></tr>`;
+    return;
+  }
+  tb.innerHTML=LOGS.map(l=>{
+    const dt=new Date(l.creado_en).toLocaleString("es-PE");
+    return `<tr><td>${dt}</td><td><b>${l.accion}</b></td><td>${l.rol_simulado==="jefe"?"Jefe de Planta":"Operario"}</td><td>${l.detalle||"—"}</td></tr>`;
+  }).join("");
 }
 
 function vRep(){
@@ -436,6 +518,7 @@ function vRep(){
   }
   $("rb").innerHTML=act.map(i=>{const s=st[i],rol=EMP[i].e>=3?"Antiguo":"Nuevo";
     return `<tr><td>${EMP[i].n}</td><td><span class="tag ${EMP[i].e<=2?"new":""}">${rol} · N${EMP[i].e}</span></td><td class="c">${s.tot}</td><td class="c">${s.N}</td><td class="c"><b>${s.DOM}</b></td><td class="c">${s.FS}</td><td class="c"><b>${s.unf}</b></td><td><div class="hb ok" style="width:${Math.round(s.unf/mx*100)}%"></div></td></tr>`}).join("");
+  vAudit();
 }
 
 function vProd(){
@@ -453,6 +536,24 @@ function go(){const v=(location.hash||"#inicio").slice(1);const id=["inicio","pr
   document.querySelectorAll(".view").forEach(s=>s.classList.toggle("on",s.id===id));
   document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("on",a.dataset.v===id));}
 
+function exportCSV(){
+  const headers=["Operario","Linea","Perfil","Nivel",...Array.from({length:DAYS},(_,d)=>`${DOW[d%7]} ${fmt(d)}`)];
+  const rows=EMP.filter(e=>e.on).map(e=>{
+    const idx=EMP.indexOf(e);
+    const rol=e.e>=3?"Antiguo":"Nuevo";
+    return [e.n,e.l,rol,e.e,...S[idx].map(t=>t||"LIBRE")];
+  });
+  const csv=[headers,...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")).join("\n");
+  const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`Turnos_Gloria_Arequipa_${PUB?"Publicada":"Borrador"}.csv`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast("CSV descargado correctamente");
+}
+
+$("csvBtn").onclick=exportCSV;
 $("rolSel").onchange=e=>{ROL=e.target.value;all();toast(ROL==="jefe"?"Rol activo: Jefe de Planta":"Rol activo: Operario (solo lectura)")};
 $("fl").innerHTML+=LIN.map(l=>`<option>${l}</option>`).join("");
 $("fl").onchange=e=>{FL=e.target.value;vProg()};
@@ -463,9 +564,11 @@ $("gb").onclick=async e=>{
   if(ROL!=="jefe"){toast("Acceso denegado: solo el Jefe de Planta puede editar turnos");return;}
   if(PUB){toast("Programación publicada: reabra como borrador para editar");return;}
   const i=+c.dataset.i,d=+c.dataset.d,o=[null,"M","T","N"];
+  const prev=S[i][d]||"LIBRE";
   S[i][d]=o[(o.indexOf(S[i][d])+1)%4];ED[i+"-"+d]=1;
   all();
   await persistEstado("borrador",S);
+  await logAudit("Ajuste manual en borrador",`${EMP[i].n} (${DOW[d%7]} ${fmt(d)}): ${prev} -> ${S[i][d]||"LIBRE"}`);
 };
 
 async function recalc(save=true){
@@ -480,6 +583,7 @@ $("pub").onclick=async()=>{
   if(ROL!=="jefe"){toast("Solo el Jefe de Planta puede publicar");return;}
   PUB=true;all();
   await persistEstado("publicada",S);
+  await logAudit("Publicación oficial","Programación congelada y publicada para consulta de planta");
   toast("Programación publicada y bloqueada contra cambios");
 };
 
@@ -487,6 +591,7 @@ $("reabrir").onclick=async()=>{
   if(ROL!=="jefe"){toast("Solo el Jefe de Planta puede reabrir");return;}
   PUB=false;all();
   await persistEstado("borrador",S);
+  await logAudit("Reapertura a borrador","El Jefe de Planta desbloqueó la programación para edición");
   toast("Programación reabierta en modo borrador");
 };
 
@@ -507,6 +612,7 @@ $("ob").onchange=async e=>{
     }catch(err){toast("Error actualizando operario: "+err.message);}
   }
   await recalc(true);
+  await logAudit("Actualización de operario",`Se modificó ficha/disponibilidad de ${emp.n}`);
 };
 
 $("add").onclick=async()=>{
@@ -524,12 +630,14 @@ $("add").onclick=async()=>{
   }
   EMP.push(nuevo);S.push(Array(DAYS).fill(null));$("nn").value="";
   await recalc(true);
+  await logAudit("Alta de operario",`Se incorporó a ${nuevo.n} (${nuevo.l}, Nivel ${nuevo.e})`);
 };
 
 $("reglas").onchange=async()=>{
   if(ROL!=="jefe"||PUB)return;
   CFG={modo:"eq",rot:$("rot").checked,desc:$("desc").checked,topedom:+$("topedom").value||0,tope:+$("tope").value||0,fin:+$("fin").value||0,mez:$("mez").checked};
   await recalc(true);
+  await logAudit("Cambio de reglas equitativas",`Tope dom: ${CFG.topedom}, Tope noches: ${CFG.tope}, Rotación: ${CFG.rot?"Sí":"No"}`);
 };
 
 $("pb").onchange=async e=>{
@@ -537,6 +645,7 @@ $("pb").onchange=async e=>{
   const t=e.target;if(!t.dataset.t)return;
   NEED[+t.dataset.p][t.dataset.t]=Math.max(0,Math.min(6,+t.value||0));
   await recalc(true);
+  await logAudit("Cambio en demanda de producción",`Se ajustó requerimiento del ${DOW[+t.dataset.p]}`);
 };
 
 window.addEventListener("hashchange",go);
