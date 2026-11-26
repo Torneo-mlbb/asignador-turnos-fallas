@@ -11,20 +11,45 @@ function generate() {
     const needN = d <= 26 ? 2 : 1;
     const usedToday = new Set();
 
+    const expPool = [0, 1, 2, 3, 4, 5];
+    const newPool = [6, 7, 8, 9, 10, 11];
+
+    if (isSun) {
+      const rankSun = (pool) => pool
+        .filter(i => !usedToday.has(i) && !lastNights.has(i))
+        .sort((a, b) => (sCount[a] - sCount[b]) || (totCount[a] - totCount[b]) || (nCount[a] - nCount[b]));
+
+      const sunExp = rankSun(expPool).slice(0, 3);
+      const sunNew = rankSun(newPool).slice(0, 3);
+
+      sunExp.sort((a, b) => nCount[a] - nCount[b]);
+      sunNew.sort((a, b) => nCount[a] - nCount[b]);
+
+      const pickN = needN === 2 ? [sunExp[0], sunNew[0]] : [sunExp[0] < sunNew[0] ? sunExp[0] : sunNew[0]];
+      const remExp = sunExp.filter(i => !pickN.includes(i));
+      const remNew = sunNew.filter(i => !pickN.includes(i));
+
+      const pickM = [remExp[0], remNew[0]];
+      const pickT = [remExp[1], remNew[1]];
+
+      [...pickN, ...pickM, ...pickT].forEach(i => { sCount[i]++; totCount[i]++; });
+      pickN.forEach(i => nCount[i]++);
+
+      g[d] = { M: pickM, T: pickT, N: pickN };
+      lastNights = new Set(pickN);
+      continue;
+    }
+
     const rankCandidates = (pool, isNightShift) => {
       return pool
         .filter(i => !usedToday.has(i) && !lastNights.has(i))
         .sort((a, b) => {
-          if (isSun && sCount[a] !== sCount[b]) return sCount[a] - sCount[b];
           if (nextIsSun && isNightShift && sCount[a] !== sCount[b]) return sCount[b] - sCount[a];
           if (isNightShift && nCount[a] !== nCount[b]) return nCount[a] - nCount[b];
           if (totCount[a] !== totCount[b]) return totCount[a] - totCount[b];
           return ((a + d) % 12) - ((b + d) % 12);
         });
     };
-
-    const expPool = [0, 1, 2, 3, 4, 5];
-    const newPool = [6, 7, 8, 9, 10, 11];
 
     const pickN = [];
     const candExpN = rankCandidates(expPool, true);
@@ -37,21 +62,21 @@ function generate() {
       const allN = rankCandidates([...expPool, ...newPool], true);
       if (allN.length) pickN.push(allN[0]);
     }
-    pickN.forEach(i => { usedToday.add(i); nCount[i]++; totCount[i]++; if (isSun) sCount[i]++; });
+    pickN.forEach(i => { usedToday.add(i); nCount[i]++; totCount[i]++; });
 
     const pickM = [];
     const candExpM = rankCandidates(expPool, false);
     const candNewM = rankCandidates(newPool, false);
     if (candExpM.length) pickM.push(candExpM[0]);
     if (candNewM.length) pickM.push(candNewM[0]);
-    pickM.forEach(i => { usedToday.add(i); totCount[i]++; if (isSun) sCount[i]++; });
+    pickM.forEach(i => { usedToday.add(i); totCount[i]++; });
 
     const pickT = [];
     const candExpT = rankCandidates(expPool, false);
     const candNewT = rankCandidates(newPool, false);
     if (candExpT.length) pickT.push(candExpT[0]);
     if (candNewT.length) pickT.push(candNewT[0]);
-    pickT.forEach(i => { usedToday.add(i); totCount[i]++; if (isSun) sCount[i]++; });
+    pickT.forEach(i => { usedToday.add(i); totCount[i]++; });
 
     g[d] = { M: pickM, T: pickT, N: pickN };
     lastNights = new Set(pickN);
